@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Order placement data
+-->
+
+<!-- TODO define your own vocabulary/syntax. Example follows:  -->
+<!ELEMENT order (customer, delivery?, burger+, special?)>
+
+<!-- A customer is identified by their name -->
+<!ELEMENT customer (#PCDATA)>
+
+<!-- An order can be for eat-in or takeout or delivery... customer specified -->
+<!ATTLIST order
+    type    (eatin|takeout|delivery) #REQUIRED
+>
+
+<!-- An order to be delivered will need delivery instructions -->
+<!ELEMENT delivery (#PCDATA)>
+
+<!-- let's provide for any special instructions -->
+<!ELEMENT special (#PCDATA)>
+
+<!-- The burgers will be specified individually
+Burger customization...
+- 1-5 types of patty types
+- up to 2 cheeses
+- any number of toppings
+- any number of sauces
+- special instructions
+- an optional name, should the customer wish to propose this as a menu item
+-->
+<!ELEMENT burger (patty, cheeses?, topping*, sauce*, instructions?, name?)>
+
+<!-- a patty can be one of 5 types(assume beef) and might be named explicitly -->
+<!ELEMENT patty (#PCDATA)>
+<!ATTLIST patty
+    type    (beef|pork|turkey|bison|vege) "beef"
+>
+
+<!-- The customer can order 2 cheeses. Let's assume that one might go on top and
+one on bottom, and provide for unique codes for these -->
+<!ELEMENT cheeses EMPTY>
+<!ATTLIST cheeses
+    top    (american|swiss|jack|blue|gruyere|gouda|aged|goat|brie) #IMPLIED
+    bottom  (american|swiss|jack|blue|gruyere|gouda|aged|goat|brie) #IMPLIED
+>
+
+<!-- Toppings... there could be tons, so we'll handle them individually -->
+<!ELEMENT topping (#PCDATA)>
+<!ATTLIST topping
+    type    (lettuce|tomato|raw|dill|roasted|shrooms|salsa|bacon|chilies|fkchili|avocado|egg|porkbelly) #REQUIRED
+>
+
+<!-- Sauces are similar to toppings -->
+<!ELEMENT sauce (#PCDATA)>
+<!ATTLIST sauce
+    type    (ketchup|mustard|mayo|fksauce) #REQUIRED
+>
+
+<!-- Instructions can be literally anything -->
+<!ELEMENT instructions (#PCDATA)>
+
+<!-- A name can be anything for now - we'll validate it later -->
+<!ELEMENT name (#PCDATA)>
+
+
+
+
+
+
